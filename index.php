@@ -3,23 +3,25 @@
 <!-- Script para listar as batalhas -->
 <?php 
     //Query para as consultas das batalhas (Trocar pela query correta)
-    $listarBatalhas = "SELECT * FROM eventos";
+    $listarBatalhas = "SELECT * FROM eventos LIMIT 3";
 
     $batalhas = mysqli_query($conecta_versovivo, $listarBatalhas);
 
     //Array com as informações das caixas de batalhas
     $caixaBatalhas = mysqli_fetch_assoc($batalhas);
+
+    //Formatação da data e hora
+    $dataHoraFormatada = date("d/m H:i", strtotime($caixaBatalhas["data_hora_evento"]));
 ?>
 
 <!-- Script para listar os MCs -->
  <?php
-    $listarMcs = "SELECT * FROM usuarios";
+    $listarMcs = "SELECT * FROM usuarios WHERE status_conta = 1";
 
     $mcs = mysqli_query($conecta_versovivo, $listarMcs);
 
     $caixasMcs = mysqli_fetch_assoc($mcs);
  ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -41,28 +43,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="estilos/index.css">
 
-    <!-- CSS - Mapa Leafletjs -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-
-    <!-- JS - Mapa Leafletjs -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
     <title>VersoVivo</title>
 </head>
-
-
 <body>
+
     <!-- Inicio Cabeçalho -->
     <header>
         <!-- Inicio Barra de nav -->
-         <?php include("componentes/nav.php") ?>
+        <?php include("componentes/nav.php") ?>
         <!-- Fim Barra de nav -->
 
         <!-- Banner de fundo dos Mc's -->
         <div class="banner">
             <img src="imagens/fundo_mc.jpg.jpeg" alt="Banner da página principal" title="Seja Bem-vindo(a)">
             <p class="mais_eventos" style="font-family:sans-serif;">Batalhas em Chamas</p>
-            <p class="paragrafo" style="font-family: cursive;">VersoVivo na Pista! Não fica de fora, cola nos
+            <p class="paragrafo" style="font-family: cursive;">VersoVivo na pista! Não fica de fora, cola nos
                 <br>
                 próximos duelos e solta a rima que vai virar hit!
             </p>
@@ -81,37 +76,21 @@
 
     <!--Localização das batalhas-->
     <div class="tudo">
+
+        <?php do { ?>
+
         <div class="loc1">
             <div class="img1">
-                <img src="imagens/batalha_aldeia.jpg" alt="img1" title="imagem1" style="width: 20%; border-radius: 20px;">
-                <p class="titulo1"><b>Batalha da Aldeia</b></p>
-                <p class="subtitulo1"><b><i class="fas fa-map-marker-alt" style="color: #BF4410;"></i>Av. Guilherme Perereca, Barueri - SP</b></p>
-                <p class="data1"><b>07/09</b></p>
+                <img src="imagens/batalha_aldeia.jpg" alt="<?php echo($caixaBatalhas["titulo_eventos"]); ?>" title="<?php echo($caixaBatalhas["titulo_eventos"]); ?>" style="width: 20%; border-radius: 20px;">
+                <p class="titulo1"><b><?php echo ($caixaBatalhas["titulo_eventos"]); ?></b></p>
+                <p class="subtitulo1"><b><i class="fas fa-map-marker-alt" style="color: #BF4410;"></i> <?php echo($caixaBatalhas["endereco"]); ?>, <?php echo($caixaBatalhas["bairro"]); ?></b></p>
+                <p class="data1"><b><?php echo($dataHoraFormatada); ?></b></p>
             </div>
-            </div>
-        <hr class="linha_horizontal">
-
-
-        <div class="loc2">
-            <div class="img2">
-            <img src="imagens/batalha_aldeia.jpg" alt="img2" title="imagem2" style="width: 20%; border-radius: 20px;">
-            <p class="titulo2"><b>Batalha da Aldeia</b></p>
-            <p class="subtitulo2"><i class="fas fa-map-marker-alt" style="color: #BF4410;"></i><b>Av. Guilherme Perereca, Barueri - SP</b></p>
-            <p class="data2"><b>07/09</b></p>
-        </div>
         </div>
         <hr class="linha_horizontal">
+        
+        <?php }while($caixaBatalhas = mysqli_fetch_assoc($batalhas)); ?>
 
-
-        <div class="loc3">
-            <div class="img3">
-            <img src="imagens/batalha_aldeia.jpg" alt="img3" title="imagem3" style="width: 20%; border-radius: 20px;">
-            <p class="titulo3"><b>Batalha da Aldeia</b></p>
-            <p class="subtitulo3"><b><i class="fas fa-map-marker-alt" style="color: #BF4410;"></i>Av. Guilherme Perereca, Barueri - SP</b></p>
-            <p class="data3"><b>07/09</b></p>
-        </div>
-        </div>
-        <hr class="linha_horizontal">
     </div>
     <!--Fim de localização das batalhas-->
 
@@ -143,14 +122,14 @@
     <div class="blocos" style="margin-left: 50%; margin-top: -26%; position: relative; position: absolute;">
         <div class="container">
             <div class="linha" style="margin-left: -187%;">
-                <div class="bloco1" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 1"><p class="nome1">Apolo</p></div>
-                <div class="bloco2" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 2"><p class="nome2">Apolo</p></div>
-                <div class="bloco3"><img src="imagens/apolo.jpg" alt="Imagem 3"><p class="nome3">Apolo</p></div>
+                <div class="bloco1" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 1"><p class="nome1">Vulgo</p></div>
+                <div class="bloco2" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 2"><p class="nome2">Vulgo</p></div>
+                <div class="bloco3"><img src="imagens/apolo.jpg" alt="Imagem 3"><p class="nome3">Vulgo</p></div>
             </div>
             <div class="linha" style="margin-left: -187%;">
-                <div class="bloco4" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 4"><p class="nome3">Apolo</p></div>
-                <div class="bloco5" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 5"><p class="nome4">Apolo</p></div>
-                <div class="bloco6"><img src="imagens/apolo.jpg" alt="Imagem 6"><p class="nome6">Apolo</p></div>
+                <div class="bloco4" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 4"><p class="nome3">Vulgo</p></div>
+                <div class="bloco5" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 5"><p class="nome4">Vulgo</p></div>
+                <div class="bloco6"><img src="imagens/apolo.jpg" alt="Imagem 6"><p class="nome6">Vulgo</p></div>
             </div>
         </div>
     </div>
@@ -174,9 +153,11 @@
 
 
     <!-- Inicio Rodapé -->
-     <?php  include("componentes/footer.php") ?>
+    <div class="footer" style="padding: 0; margin: 0; overflow: hidden;">
+        <?php  include("componentes/footer.php") ?>
+    </div>
     <!-- Fim Rodapé -->
-
+     
 
     <!-- jQuery versão 3.6.1 com correção de segurança -->
     <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
@@ -210,7 +191,6 @@
 
     <!-- Bootstrap versão 5.3.3 com funcionalidades de bundle para versões mais recentes -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 
     <!-- Scripts PHP para otimização e desempenho -->
     <?php 
