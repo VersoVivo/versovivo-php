@@ -135,21 +135,21 @@ $caixasMcs = mysqli_fetch_assoc($mcs);
         <div class="container">
             <div class="linha" style="margin-left: -187%;">
 
-                <div class="bloco1" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 1"><p class="nome1">Vulgo</p></div>
+                <div class="bloco1" style="margin-right: 50px;"><img src="imagens/<?php echo ($mcs['imagem1_thumb']); ?>" alt="Imagem 1"><p class="nome1">Vulgo</p></div>
 
-                <div class="bloco2" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 2"><p class="nome2">Vulgo</p></div>
+                <div class="bloco2" style="margin-right: 50px;"><img src="imagens/<?php echo ($mcs['imagem1_thumb']); ?>" alt="Imagem 2"><p class="nome2">Vulgo</p></div>
 
-                <div class="bloco3"><img src="imagens/apolo.jpg" alt="Imagem 3"><p class="nome3">Vulgo</p></div>
+                <div class="bloco3"><img src="imagens/<?php echo ($mcs['imagem1_thumb']); ?>" alt="Imagem 3"><p class="nome3">Vulgo</p></div>
 
             </div>
             
             <div class="linha" style="margin-left: -187%;">
                 
-                <div class="bloco4" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 4"><p class="nome3">Vulgo</p></div>
+                <div class="bloco4" style="margin-right: 50px;"><img src="imagens/<?php echo ($mcs['imagem1_thumb']); ?>" alt="Imagem 4"><p class="nome3">Vulgo</p></div>
 
-                <div class="bloco5" style="margin-right: 50px;"><img src="imagens/apolo.jpg" alt="Imagem 5"><p class="nome4">Vulgo</p></div>
+                <div class="bloco5" style="margin-right: 50px;"><img src="imagens/<?php echo ($mcs['imagem1_thumb']); ?>" alt="Imagem 5"><p class="nome4">Vulgo</p></div>
 
-                <div class="bloco6"><img src="imagens/apolo.jpg" alt="Imagem 6"><p class="nome6">Vulgo</p></div>
+                <div class="bloco6"><img src="imagens/<?php echo ($mcs['imagem1_thumb']); ?>" alt="Imagem 6"><p class="nome6">Vulgo</p></div>
 
             </div>
         </div>
